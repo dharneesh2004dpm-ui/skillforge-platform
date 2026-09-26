@@ -45,11 +45,11 @@ export default function Login() {
         const endpoint = isLoginView ? '/api/auth/login' : '/api/auth/register';
         
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}${endpoint}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
+            const res = await fetch('https://skillforge-api-i4bs.onrender.com/api/auth/register', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name, email, password })
+})
             
             const data = await res.json();
 

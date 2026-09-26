@@ -10,7 +10,7 @@ export default function GlobalLeaderboard() {
 
     // Fetch available tests for the dropdown
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/tests`)
+        fetch(`${https://skillforge-api-i4bs.onrender.com}/api/tests`)
             .then(res => res.json())
             .then(data => {
                 setTests(data);
@@ -23,7 +23,7 @@ export default function GlobalLeaderboard() {
     useEffect(() => {
         if (!selectedTestId) return;
         setLoading(true);
-        fetch(`${process.env.REACT_APP_API_URL}/api/results/${selectedTestId}`)
+        fetch(`${https://skillforge-api-i4bs.onrender.com}/api/results/${selectedTestId}`)
             .then(res => res.json())
             .then(data => {
                 setLeaderboardData(data);

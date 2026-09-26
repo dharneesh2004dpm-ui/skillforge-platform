@@ -11,7 +11,7 @@ const userName = localStorage.getItem('userName') || 'Student';
     const [selectedResult, setSelectedResult] = useState(null); // State for the Detailed Review Modal
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/my-results/${encodeURIComponent(userEmail)}`)
+        fetch(`${https://skillforge-api-i4bs.onrender.com}/api/my-results/${encodeURIComponent(userEmail)}`)
             .then(res => res.json())
             .then(data => {
                 setResults(data);

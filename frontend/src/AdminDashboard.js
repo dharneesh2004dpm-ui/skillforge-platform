@@ -51,7 +51,7 @@ export default function AdminDashboard() {
     }, []);
 
     const fetchTopics = () => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/tests`)
+        fetch(`${https://skillforge-api-i4bs.onrender.com}/api/tests`)
             .then(res => res.json())
             .then(data => {
                 setTopicsList(data);
@@ -63,7 +63,7 @@ export default function AdminDashboard() {
     // Fetch questions when Manage tab is active and a topic is selected
     useEffect(() => {
         if (activeTab === 'manage' && manageTopic) {
-            fetch(`${process.env.REACT_APP_API_URL}/api/practice/${encodeURIComponent(manageTopic)}`)
+            fetch(`${https://skillforge-api-i4bs.onrender.com}/api/practice/${encodeURIComponent(manageTopic)}`)
                 .then(res => res.json())
                 .then(setManageQuestions)
                 .catch(err => console.error(err));
@@ -101,7 +101,7 @@ export default function AdminDashboard() {
         setIsSubmitting(true);
 
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/practice`, {
+            const res = await fetch(`${https://skillforge-api-i4bs.onrender.com}/api/practice`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ topic, questionText, options, correctAnswer, explanation })
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this question?")) return;
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/practice/${id}`, { method: 'DELETE' });
+            const res = await fetch(`${https://skillforge-api-i4bs.onrender.com}/api/practice/${id}`, { method: 'DELETE' });
             if (res.ok) {
                 setManageQuestions(manageQuestions.filter(q => q._id !== id));
                 alert('Question deleted.');
