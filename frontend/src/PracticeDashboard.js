@@ -126,8 +126,8 @@ export default function PracticeDashboard() {
                 <div style={styles.topGrid}>
                     <div style={styles.primaryCard} onClick={() => navigate('/aptitude')}>
                         <div style={styles.icon}>🚀</div>
-                        <h3 style={styles.cardTitle} style={{...styles.cardTitle, color: 'white'}}>Practice Engine</h3>
-                        <p style={styles.cardText} style={{...styles.cardText, color: 'rgba(255,255,255,0.9)'}}>Master aptitude & technical questions</p>
+                        <h3 style={{...styles.cardTitle, color: 'white'}}>Practice Engine</h3>
+                        <p style={{...styles.cardText, color: 'rgba(255,255,255,0.9)'}}>Master aptitude & technical questions</p>
                     </div>
 
                     <div style={styles.secondaryCard} onClick={() => navigate('/results')}>
