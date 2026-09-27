@@ -37,7 +37,8 @@ export default function PracticeSession() {
     useEffect(() => {
         const fetchCustomTopics = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/topics');
+                // FIXED: Now points to live Render backend
+                const response = await fetch('https://skillforge-api-i4bs.onrender.com/api/topics');
                 if (response.ok) {
                     const dbTopics = await response.json();
                     // Merge hardcoded topics with custom DB topics and remove duplicates
@@ -66,7 +67,8 @@ export default function PracticeSession() {
         window.scrollTo(0, 0);
 
         try {
-            const response = await fetch(`http://localhost:5000/api/practice/${encodeURIComponent(topic)}`);
+            // FIXED: Now points to live Render backend
+            const response = await fetch(`https://skillforge-api-i4bs.onrender.com/api/practice/${encodeURIComponent(topic)}`);
             if (response.ok) {
                 const data = await response.json();
                 setQuestions(data);
