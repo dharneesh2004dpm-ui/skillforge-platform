@@ -1,7 +1,7 @@
-import UserTestEngine from './UserTestEngine';
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './Login';
+import UserTestEngine from './UserTestEngine';
+import Login from './login';
 import AdminDashboard from './AdminDashboard';
 import TestPage from './TestPage';
 import Leaderboard from './Leaderboard';
@@ -17,7 +17,8 @@ function App() {
         {/* Set Login as the default landing page */}
         <Route path="/" element={<Login />} />
         
-        {/* Dashboards */}
+        {/* Dashboards - Added /dashboard to fix the blank screen on login */}
+        <Route path="/dashboard" element={<PracticeDashboard />} />
         <Route path="/practice" element={<PracticeDashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
         

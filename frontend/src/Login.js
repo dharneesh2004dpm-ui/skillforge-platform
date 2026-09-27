@@ -6,6 +6,7 @@ export default function Login() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // NEW STATE
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -58,13 +59,13 @@ export default function Login() {
                 if (data.role === 'admin') {
                     navigate('/admin');
                 } else {
-                    navigate('/dashboard');
+                    navigate('/dashboard'); // Requires <Route path="/dashboard"> in App.js
                 }
             } else {
                 setError(data.message || 'Authentication failed');
             }
         } catch (err) {
-            setError('Network error. Please ensure the server is running.');
+            setError('Network error. Please ensure the backend server is running and CORS is allowed.');
         }
     };
 
@@ -82,7 +83,13 @@ export default function Login() {
         form: { display: 'flex', flexDirection: 'column', gap: '15px' },
         inputGroup: { display: 'flex', flexDirection: 'column', gap: '5px' },
         label: { fontSize: '0.85rem', color: isDark ? '#cbd5e1' : '#475569', fontWeight: '600' },
-        input: { padding: '10px', borderRadius: '6px', border: `1px solid ${isDark ? '#334155' : '#cbd5e1'}`, backgroundColor: isDark ? '#0f172a' : '#f1f5f9', color: isDark ? 'white' : 'black', fontSize: '1rem' },
+        
+        // Input Wrapper for Eye Icon
+        passwordWrapper: { position: 'relative', display: 'flex', alignItems: 'center' },
+        input: { width: '100%', padding: '10px', borderRadius: '6px', border: `1px solid ${isDark ? '#334155' : '#cbd5e1'}`, backgroundColor: isDark ? '#0f172a' : '#f1f5f9', color: isDark ? 'white' : 'black', fontSize: '1rem', boxSizing: 'border-box' },
+        passwordInput: { paddingRight: '40px' }, // Extra space so text doesn't hide behind icon
+        eyeBtn: { position: 'absolute', right: '10px', background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.2rem', padding: '0', display: 'flex', alignItems: 'center', color: isDark ? '#94a3b8' : '#64748b' },
+        
         button: { padding: '12px', backgroundColor: '#3b82f6', color: 'white', border: 'none', borderRadius: '6px', fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer', marginTop: '10px' },
         toggleText: { textAlign: 'center', marginTop: '20px', fontSize: '0.9rem', color: isDark ? '#cbd5e1' : '#475569' },
         toggleLink: { color: '#3b82f6', cursor: 'pointer', fontWeight: 'bold' }
@@ -116,10 +123,30 @@ export default function Login() {
                         <label style={currentStyles.label}>Email Address</label>
                         <input type="email" value={email} onChange={e => setEmail(e.target.value)} style={currentStyles.input} required />
                     </div>
+                    
+                    {/* NEW PASSWORD FIELD WITH TOGGLE */}
                     <div style={currentStyles.inputGroup}>
                         <label style={currentStyles.label}>Password</label>
-                        <input type="password" value={password} onChange={e => setPassword(e.target.value)} style={currentStyles.input} required />
+                        <div style={currentStyles.passwordWrapper}>
+                            <input 
+                                type={showPassword ? "text" : "password"} 
+                                value={password} 
+                                onChange={e => setPassword(e.target.value)} 
+                                style={{...currentStyles.input, ...currentStyles.passwordInput}} 
+                                required 
+                            />
+                            <button 
+                                type="button" 
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={currentStyles.eyeBtn}
+                                title={showPassword ? "Hide Password" : "Show Password"}
+                            >
+                                {showPassword ? '🙈' : '👁️'}
+                            </button>
+                        </div>
                     </div>
+                    {/* END NEW PASSWORD FIELD */}
+
                     <button type="submit" style={currentStyles.button}>
                         {isLogin ? 'Sign In Securely' : 'Register Account'}
                     </button>
