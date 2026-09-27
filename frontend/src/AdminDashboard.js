@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AdminTestCreator from './AdminTestCreator'; // Your assessment engine
+import AdminTestCreator from './AdminTestCreator'; 
 
 export default function AdminDashboard() {
     const navigate = useNavigate();
@@ -10,7 +10,6 @@ export default function AdminDashboard() {
     const [themePref, setThemePref] = useState(localStorage.getItem('appTheme') || 'system');
     const [isSysDark, setIsSysDark] = useState(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-    // Listen for system theme changes
     useEffect(() => {
         const mq = window.matchMedia('(prefers-color-scheme: dark)');
         const handler = (e) => setIsSysDark(e.matches);
@@ -51,7 +50,8 @@ export default function AdminDashboard() {
     }, []);
 
     const fetchTopics = () => {
-        fetch('https://skillforge-api-i4bs.onrender.com/api/tests')
+        // FIXED: Now fetches from /api/topics so you can manage practice questions!
+        fetch('https://skillforge-api-i4bs.onrender.com/api/topics')
             .then(res => res.json())
             .then(data => {
                 setTopicsList(data);
@@ -60,7 +60,6 @@ export default function AdminDashboard() {
             .catch(err => console.error(err));
     };
 
-    // Fetch questions when Manage tab is active and a topic is selected
     useEffect(() => {
         if (activeTab === 'manage' && manageTopic) {
             fetch(`https://skillforge-api-i4bs.onrender.com/api/practice/${encodeURIComponent(manageTopic)}`)
@@ -132,6 +131,7 @@ export default function AdminDashboard() {
             if (res.ok) {
                 setManageQuestions(manageQuestions.filter(q => q._id !== id));
                 alert('Question deleted.');
+                fetchTopics(); // Refresh topic list in case that was the last question in the topic
             }
         } catch (err) {
             console.error(err);
@@ -187,7 +187,6 @@ export default function AdminDashboard() {
 
     return (
         <div style={currentStyles.pageContainer}>
-            {/* Top Navbar */}
             <nav style={currentStyles.navbar}>
                 <div style={currentStyles.navContent}>
                     <h1 style={currentStyles.logo}>SkillForge <span style={{fontSize:'12px', background:'#6366f1', color:'white', padding:'4px 8px', borderRadius:'4px'}}>ADMIN</span></h1>
@@ -207,14 +206,12 @@ export default function AdminDashboard() {
                 </div>
 
                 <div style={currentStyles.panel}>
-                    {/* Tab Navigation */}
                     <div style={currentStyles.tabContainer}>
                         <button onClick={() => setActiveTab('add')} style={activeTab === 'add' ? currentStyles.activeTab : currentStyles.inactiveTab}>+ Add Question</button>
                         <button onClick={() => setActiveTab('manage')} style={activeTab === 'manage' ? currentStyles.activeTab : currentStyles.inactiveTab}>⚙️ Manage / Delete</button>
                         <button onClick={() => setActiveTab('engine')} style={activeTab === 'engine' ? currentStyles.activeTab : currentStyles.inactiveTab}>🚀 Assessment Engine</button>
                     </div>
 
-                    {/* TAB 1: ADD QUESTION */}
                     {activeTab === 'add' && (
                         <form onSubmit={handleAddQuestion}>
                             <div style={currentStyles.inputGroup}>
@@ -271,7 +268,6 @@ export default function AdminDashboard() {
                         </form>
                     )}
 
-                    {/* TAB 2: MANAGE / DELETE */}
                     {activeTab === 'manage' && (
                         <div>
                             <div style={currentStyles.inputGroup}>
@@ -298,10 +294,8 @@ export default function AdminDashboard() {
                         </div>
                     )}
 
-                    {/* TAB 3: ASSESSMENT ENGINE (The file we previously built!) */}
                     {activeTab === 'engine' && (
                         <div style={{ marginTop: '20px' }}>
-                            {/* This seamlessly drops in the engine you already have */}
                             <AdminTestCreator />
                         </div>
                     )}
