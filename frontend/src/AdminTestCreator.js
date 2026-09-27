@@ -44,15 +44,15 @@ export default function AdminTestCreator() {
 
     useEffect(() => {
         if (selectedTopic) {
-            fetch(`${https://skillforge-api-i4bs.onrender.com}/api/practice/${encodeURIComponent(selectedTopic)}`)
+            fetch(`https://skillforge-api-i4bs.onrender.com/api/practice/${encodeURIComponent(selectedTopic)}`)
                 .then(res => res.json())
                 .then(setAvailableQuestions)
                 .catch(err => console.error(err));
         }
     }, [selectedTopic]);
 
-    const fetchTopics = () => fetch(`${https://skillforge-api-i4bs.onrender.com}/api/topics`).then(res => res.json()).then(setTopics);
-    const fetchTests = () => fetch(`${https://skillforge-api-i4bs.onrender.com}/api/tests`).then(res => res.json()).then(setExistingTests);
+    const fetchTopics = () => fetch(`https://skillforge-api-i4bs.onrender.com/api/topics`).then(res => res.json()).then(setTopics);
+    const fetchTests = () => fetch(`https://skillforge-api-i4bs.onrender.com/api/tests`).then(res => res.json()).then(setExistingTests);
 
     // --- 1. ADD FROM BANK LOGIC ---
     const handleAddFromBank = (q) => {
@@ -129,7 +129,7 @@ export default function AdminTestCreator() {
         const newTest = { title, description, durationMinutes, maxAttempts, scheduledStart: finalStart, scheduledEnd: finalEnd, questions: testQuestions };
 
         try {
-            const res = await fetch(`${https://skillforge-api-i4bs.onrender.com}/api/tests`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newTest) });
+            const res = await fetch(`https://skillforge-api-i4bs.onrender.com/api/tests`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newTest) });
             if (res.ok) {
                 alert("Test created successfully!");
                 setTitle(''); setDescription(''); setScheduledStart(''); setScheduledEnd(''); setTestQuestions([]); fetchTests(); 
@@ -140,7 +140,7 @@ export default function AdminTestCreator() {
     // --- LIVE EDIT LOGIC ---
     const handleUpdateLiveTest = async (id) => {
         try {
-            const res = await fetch(`${https://skillforge-api-i4bs.onrender.com}/api/tests/${id}`, {
+            const res = await fetch(`https://skillforge-api-i4bs.onrender.com/api/tests/${id}`, {
                 method: 'PUT', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ durationMinutes: Number(editData.durationMinutes), maxAttempts: Number(editData.maxAttempts) })
             });
@@ -156,7 +156,7 @@ export default function AdminTestCreator() {
     const fetchLeaderboard = async (test) => {
         setViewingLeaderboard(test);
         try {
-            const res = await fetch(`${https://skillforge-api-i4bs.onrender.com}/api/results/${test._id}`);
+            const res = await fetch(`https://skillforge-api-i4bs.onrender.com/api/results/${test._id}`);
             const data = await res.json();
             setLeaderboardData(data);
         } catch (err) { console.error("Failed to fetch leaderboard", err); }
