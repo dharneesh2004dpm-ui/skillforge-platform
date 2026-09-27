@@ -29,7 +29,7 @@ export default function PracticeDashboard() {
 
     // --- FETCH DATA ---
     useEffect(() => {
-        fetch(`${https://skillforge-api-i4bs.onrender.com}/api/tests`)
+        fetch('https://skillforge-api-i4bs.onrender.com/api/tests')
             .then(res => res.json())
             .then(data => {
                 const now = new Date();
