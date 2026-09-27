@@ -100,10 +100,12 @@ export default function PracticeDashboard() {
 
     return (
         <div style={styles.pageContainer}>
+            {/* --- TOP NAVBAR --- */}
             <nav style={styles.navbar}>
                 <div style={styles.navContent}>
                     <h1 style={styles.logo}>SkillForge</h1>
                     
+                    {/* Updated Nav Buttons Container */}
                     <div style={styles.navButtons}>
                         <button onClick={cycleTheme} style={styles.themeToggleBtn}>
                             {themePref === 'system' ? '💻 System' : themePref === 'dark' ? '🌙 Dark' : '☀️ Light'}
@@ -114,11 +116,13 @@ export default function PracticeDashboard() {
             </nav>
 
             <main style={styles.mainContent}>
+                {/* --- HEADER --- */}
                 <div style={styles.header}>
                     <h2 style={styles.welcomeText}>Welcome back, {userName}</h2>
                     <p style={styles.subtitle}>Ready to elevate your trajectory today?</p>
                 </div>
 
+                {/* --- TOP 3 ACTION CARDS --- */}
                 <div style={styles.topGrid}>
                     <div style={styles.primaryCard} onClick={() => navigate('/aptitude')}>
                         <div style={styles.icon}>🚀</div>
@@ -139,6 +143,7 @@ export default function PracticeDashboard() {
                     </div>
                 </div>
 
+                {/* --- LIVE ASSESSMENTS SECTION --- */}
                 <div style={styles.assessmentsSection}>
                     <h2 style={styles.sectionHeading}>Live Assessments</h2>
                     
